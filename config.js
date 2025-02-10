@@ -15,10 +15,10 @@ module.exports = {
   errorLog: "", 
   nodes: [
      {
-      name: "Koi Node V4",
-      password: "jmlitev4",
-      host: "46.202.82.164",
-      port: 1027,
+      name: "Muzykant v4",
+      password: "https://discord.gg/v6sdrD9kPh",
+      host: "lavalink_v4.muzykant.xyz",
+      port: 80,
       secure: false
     },
     {
