@@ -14,11 +14,11 @@ module.exports = {
   embedTimeout: 5, 
   errorLog: "", 
   nodes: [
-     {
-      name: "Muzykant v4",
-      password: "youshallnotpass",
-      host: "lavalink.jirayu.net",
-      port: 13592,
+    {
+      name: "INZEWORLD.COM (DE)",
+      password: "saher.inzeworld.com",
+      host: "lava.inzeworld.com",
+      port: 3128,
       secure: false
     },
     {
