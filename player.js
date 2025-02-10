@@ -105,15 +105,14 @@ function initializePlayer(client) {
                     iconURL: musicIcons.playerIcon,
                     url: config.SupportServer
                 })
-                .setFooter({ text: `Developed by SSRR | Prime Music v1.2`, iconURL: musicIcons.heartIcon })
+                .setFooter({ text: `ミミズパワーによって開発されました | 愉快なゲーム`, iconURL: musicIcons.heartIcon })
                 .setTimestamp()
                 .setDescription(  
                     `- **Title:** [${track.info.title}](${track.info.uri})\n` +
-                    `- **Author:** ${track.info.author || 'Unknown Artist'}\n` +
+                    `- **Author:** ${track.info.author || '不明アーティスト'}\n` +
                     `- **Length:** ${formatDuration(track.info.length)}\n` +
                     `- **Requester:** ${requester}\n` +
-                    `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `Loop`, ❌ `Disable`, ⏭️ `Skip`, 📜 `Queue`, 🗑️ `Clear`\n ⏹️ `Stop`, ⏸️ `Pause`, ▶️ `Resume`, 🔊 `Vol +`, 🔉 `Vol -`')
-                .setImage('attachment://musicard.png')
+                    `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `ループ再生`, ❌ `ループ解除`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `リセット`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再生`, 🔊 `音量＋`, 🔉 `音量ー`')
                 .setColor('#FF7A00');
 
             const actionRow1 = createActionRow1(false);
@@ -128,10 +127,10 @@ function initializePlayer(client) {
             }
 
         } catch (error) {
-            console.error("Error creating or sending music card:", error.message);
+            console.error("ミュージックカードの作成または送信エラー：", error.message);
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
-                .setDescription("⚠️ **Unable to load track card. Continuing playback...**");
+                .setDescription("⚠️ **トラックカードをロードできません。再生を続ける...**");
             await channel.send({ embeds: [errorEmbed] });
         }
     });
@@ -158,17 +157,17 @@ function initializePlayer(client) {
     
                 if (!nextTrack) {
                     player.destroy();
-                    await channel.send("⚠️ **No more tracks to autoplay. Disconnecting...**");
+                    await channel.send("⚠️ **自動再生するトラックはもうありません。切断中...**");
                 }
             } else {
                 console.log(`Autoplay is disabled for guild: ${guildId}`);
                 player.destroy();
-                await channel.send("🎶 **Queue has ended. Autoplay is disabled.**");
+                await channel.send("🎶 **キューは終了しました。自動再生は無効になっています。**");
             }
         } catch (error) {
             console.error("Error handling autoplay:", error);
             player.destroy();
-            await channel.send("👾**Queue Empty! Disconnecting...**");
+            await channel.send("👾**キューは空です！切断中...**");
         }
     });
     
@@ -221,7 +220,7 @@ function setupCollector(client, player, channel, message) {
         if (!voiceChannel || voiceChannel.id !== playerChannel) {
             const vcEmbed = new EmbedBuilder()
                 .setColor(config.embedColor)
-                .setDescription('🔒 **You need to be in the same voice channel to use the controls!**');
+                .setDescription('🔒 **コントロールを使用するには、同じ音声チャンネルにいる必要があります！**');
             const sentMessage = await channel.send({ embeds: [vcEmbed] });
             setTimeout(() => sentMessage.delete().catch(console.error), config.embedTimeout * 1000);
             return;
@@ -244,7 +243,7 @@ async function handleInteraction(i, player, channel) {
             break;
         case 'skipTrack':
             player.stop();
-            await sendEmbed(channel, "⏭️ **Player will play the next song!**");
+            await sendEmbed(channel, "⏭️ **プレイヤーは次の曲を再生します！**");
             break;
         case 'disableLoop':
             disableLoop(player, channel);
@@ -254,27 +253,27 @@ async function handleInteraction(i, player, channel) {
             break;
         case 'clearQueue':
             player.queue.clear();
-            await sendEmbed(channel, "🗑️ **Queue has been cleared!**");
+            await sendEmbed(channel, "🗑️ **キューがリセットされました！**");
             break;
         case 'stopTrack':
             player.stop();
             player.destroy();
-            await sendEmbed(channel, '⏹️ **Playback has been stopped and player destroyed!**');
+            await sendEmbed(channel, '⏹️ **再生が停止され、プレーヤーが破壊されました！パリーンw**');
             break;
         case 'pauseTrack':
             if (player.paused) {
-                await sendEmbed(channel, '⏸️ **Playback is already paused!**');
+                await sendEmbed(channel, '⏸️ **再生はすでに一時停止されています！**');
             } else {
                 player.pause(true);
-                await sendEmbed(channel, '⏸️ **Playback has been paused!**');
+                await sendEmbed(channel, '⏸️ **再生が一時停止されました！**');
             }
             break;
         case 'resumeTrack':
             if (!player.paused) {
-                await sendEmbed(channel, '▶️ **Playback is already resumed!**');
+                await sendEmbed(channel, '▶️ **再生はすでに再開されています！**');
             } else {
                 player.pause(false);
-                await sendEmbed(channel, '▶️ **Playback has been resumed!**');
+                await sendEmbed(channel, '▶️ **再生が再開されました！**');
             }
             break;
         case 'volumeUp':
@@ -295,10 +294,10 @@ async function sendEmbed(channel, message) {
 function adjustVolume(player, channel, amount) {
     const newVolume = Math.min(100, Math.max(10, player.volume + amount));
     if (newVolume === player.volume) {
-        sendEmbed(channel, amount > 0 ? '🔊 **Volume is already at maximum!**' : '🔉 **Volume is already at minimum!**');
+        sendEmbed(channel, amount > 0 ? '🔊 **音量はすでに最大です！**' : '🔉 **ボリュームはすでに最小です！**');
     } else {
         player.setVolume(newVolume);
-        sendEmbed(channel, `🔊 **Volume changed to ${newVolume}%!**`);
+        sendEmbed(channel, `🔊 **ボリュームは ${newVolume}% に変更されました!**`);
     }
 }
 
@@ -316,17 +315,17 @@ function formatTrack(track) {
 
 function toggleLoop(player, channel) {
     player.setLoop(player.loop === "track" ? "queue" : "track");
-    sendEmbed(channel, player.loop === "track" ? "🔁 **Track loop is activated!**" : "🔁 **Queue loop is activated!**");
+    sendEmbed(channel, player.loop === "track" ? "🔁 **トラックループが起動しました！**" : "🔁 **キューループがアクティブになりました！**");
 }
 
 function disableLoop(player, channel) {
     player.setLoop("none");
-    sendEmbed(channel, "❌ **Loop is disabled!**");
+    sendEmbed(channel, "❌ **ループは無効です！**");
 }
 
 function showQueue(channel) {
     if (queueNames.length === 0) {
-        sendEmbed(channel, "The queue is empty.");
+        sendEmbed(channel, "キューは空です。");
         return;
     }
     const queueChunks = [];
@@ -348,7 +347,7 @@ function showQueue(channel) {
     queueChunks.forEach(async (chunk) => {
         const embed = new EmbedBuilder()
             .setColor(config.embedColor)
-            .setDescription(`📜 **Queue:**\n${chunk}`);
+            .setDescription(`📜 **キュー:**\n${chunk}`);
         await channel.send({ embeds: [embed] }).catch(console.error);
     });
 }
