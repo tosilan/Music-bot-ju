@@ -16,9 +16,9 @@ module.exports = {
   nodes: [
      {
       name: "Koi Node V4",
-      password: "prplmoe.me",
-      host: "https://dsc.gg/ajidevserver",
-      port: 80,
+      password: "jmlitev4",
+      host: "46.202.82.164",
+      port: 1027,
       secure: false
     },
     {
