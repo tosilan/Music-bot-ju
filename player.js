@@ -11,7 +11,7 @@ const { autoplayCollection } = require('./mongodb.js');
 const { createCanvas, registerFont } = require('canvas'); // canvasをインポート
 
 // Googleフォントの登録
-registerFont(path.join(__dirname, 'fonts/NotoSansJP-Regular.ttf'), { family: 'Noto Sans JP' });
+registerFont(path.join(__dirname, './NotoSansJP-Regular.ttf'), { family: 'Noto Sans JP' });
 
 async function sendMessageWithPermissionsCheck(channel, embed, attachment, actionRow1, actionRow2) {
     try {
