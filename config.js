@@ -14,6 +14,13 @@ module.exports = {
   embedTimeout: 5, 
   errorLog: "", 
   nodes: [
+     {
+      name: "Muzykant v4",
+      password: "youshallnotpass",
+      host: "lavalink.jirayu.net",
+      port: 13592,
+      secure: false
+    },
     {
       name: "ChalresNaig Node",
       password: "NAIGLAVA-dash.techbyte.host",
