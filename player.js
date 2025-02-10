@@ -75,7 +75,7 @@ function initializePlayer(client) {
         const requester = requesters.get(trackUri);
         const { createCanvas, registerFont } = require('canvas');
 
-        registerFont('path/to/your/japanese-font.ttf', { family: 'JapaneseFont' });
+        registerFont('./NotoSansJP-VariableFont_wght.ttf', { family: 'JapaneseFont' });
 
         try {
             const musicard = await Dynamic({
