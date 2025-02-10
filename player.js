@@ -73,6 +73,9 @@ function initializePlayer(client) {
         const channel = client.channels.cache.get(player.textChannel);
         const trackUri = track.info.uri;
         const requester = requesters.get(trackUri);
+        const { createCanvas, registerFont } = require('canvas');
+
+        registerFont('path/to/your/japanese-font.ttf', { family: 'JapaneseFont' });
 
         try {
             const musicard = await Dynamic({
@@ -83,8 +86,10 @@ function initializePlayer(client) {
                 progressBarColor: '#5F2D00',
                 name: track.info.title,
                 nameColor: '#FF7A00',
-                author: track.info.author || 'Unknown Artist',
                 authorColor: '#696969',
+                nameFont: 'JapaneseFont', // 日本語フォントを指定
+                author: track.info.author || 'Unknown Artist',
+                authorFont: 'JapaneseFont', // 日本語フォントを指定
             });
 
             // Save the generated card to a file
