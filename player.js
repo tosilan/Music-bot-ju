@@ -101,18 +101,18 @@ function initializePlayer(client) {
             const attachment = new AttachmentBuilder(cardPath, { name: 'musicard.png' });
             const embed = new EmbedBuilder()
                 .setAuthor({ 
-                    name: 'Playing Song..', 
+                    name: '歌を再生する..', 
                     iconURL: musicIcons.playerIcon,
                     url: config.SupportServer
                 })
                 .setFooter({ text: `ミミズパワーによって開発されました | 愉快なゲーム`, iconURL: musicIcons.heartIcon })
                 .setTimestamp()
                 .setDescription(  
-                    `- **Title:** [${track.info.title}](${track.info.uri})\n` +
-                    `- **Author:** ${track.info.author || '不明アーティスト'}\n` +
-                    `- **Length:** ${formatDuration(track.info.length)}\n` +
-                    `- **Requester:** ${requester}\n` +
-                    `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `ループ再生`, ❌ `ループ解除`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `リセット`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再生`, 🔊 `音量＋`, 🔉 `音量ー`')
+                    `- **曲名:** [${track.info.title}](${track.info.uri})\n` +
+                    `- **アーティスト:** ${track.info.author || '不明アーティスト'}\n` +
+                    `- **再生時間:** ${formatDuration(track.info.length)}\n` +
+                    `- **実行者:** ${requester}\n` +
+                    `- **取得元:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `ループ再生`, ❌ `ループ解除`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `リセット`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再生`, 🔊 `音量＋`, 🔉 `音量ー`')
                 .setColor('#FF7A00');
 
             const actionRow1 = createActionRow1(false);
