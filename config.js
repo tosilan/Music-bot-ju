@@ -2,15 +2,15 @@
 
 module.exports = {
   TOKEN: "",
-  language: "en",
+  language: "ja",
   ownerID: ["1004206704994566164", ""], 
-  mongodbUri : "",
+  mongodbUri : "mongodb+srv://<db_username>:<db_password>@cluster0.ddpbd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
   setupFilePath: './commands/setup.json',
   commandsDir: './commands',  
   embedColor: "#1db954",
-  activityName: "YouTube Music", 
+  activityName: "愉快なゲーム", 
   activityType: "LISTENING",  // Available activity types : LISTENING , PLAYING
-  SupportServer: "https://discord.gg/xQF9f9yUEM",
+  SupportServer: "https://discord.gg/N28YUYpdAe",
   embedTimeout: 5, 
   errorLog: "", 
   nodes: [
