@@ -8,9 +8,13 @@ const colors = require('./UI/colors/colors');
 const fs = require("fs");
 const path = require("path");
 const { autoplayCollection } = require('./mongodb.js');
+const { createCanvas, registerFont } = require('canvas'); // canvasをインポート
+
+// Googleフォントの登録
+registerFont(path.join(__dirname, 'fonts/NotoSansJP-Regular.ttf'), { family: 'Noto Sans JP' });
+
 async function sendMessageWithPermissionsCheck(channel, embed, attachment, actionRow1, actionRow2) {
     try {
-   
         const permissions = channel.permissionsFor(channel.guild.members.me);
         if (!permissions.has(PermissionsBitField.Flags.SendMessages) ||
             !permissions.has(PermissionsBitField.Flags.EmbedLinks) ||
@@ -73,9 +77,6 @@ function initializePlayer(client) {
         const channel = client.channels.cache.get(player.textChannel);
         const trackUri = track.info.uri;
         const requester = requesters.get(trackUri);
-        const { createCanvas, registerFont } = require('canvas');
-
-        registerFont('./NotoSansJP-VariableFont_wght.ttf', { family: 'JapaneseFont' });
 
         try {
             const musicard = await Dynamic({
@@ -86,10 +87,10 @@ function initializePlayer(client) {
                 progressBarColor: '#5F2D00',
                 name: track.info.title,
                 nameColor: '#FF7A00',
-                authorColor: '#696969',
-                nameFont: 'JapaneseFont', // 日本語フォントを指定
                 author: track.info.author || 'Unknown Artist',
-                authorFont: 'JapaneseFont', // 日本語フォントを指定
+                authorColor: '#696969',
+                nameFont: 'Noto Sans JP', // フォントを指定
+                authorFont: 'Noto Sans JP' // フォントを指定
             });
 
             // Save the generated card to a file
@@ -99,23 +100,22 @@ function initializePlayer(client) {
             // Prepare the attachment and embed
             const attachment = new AttachmentBuilder(cardPath, { name: 'musicard.png' });
             const embed = new EmbedBuilder()
-            .setAuthor({ 
-                name: 'Playing Song..', 
-                iconURL: musicIcons.playerIcon,
-                url: config.SupportServer
-            })
-            .setFooter({ text: `Developed by SSRR | Prime Music v1.2`, iconURL: musicIcons.heartIcon })
-            .setTimestamp()
-            .setDescription(  
-                `- **Title:** [${track.info.title}](${track.info.uri})\n` +
-                `- **Author:** ${track.info.author || 'Unknown Artist'}\n` +
-                `- **Length:** ${formatDuration(track.info.length)}\n` +
-                `- **Requester:** ${requester}\n` +
-                `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `Loop`, ❌ `Disable`, ⏭️ `Skip`, 📜 `Queue`, 🗑️ `Clear`\n ⏹️ `Stop`, ⏸️ `Pause`, ▶️ `Resume`, 🔊 `Vol +`, 🔉 `Vol -`')
-            .setImage('attachment://musicard.png')
-            .setColor('#FF7A00');
+                .setAuthor({ 
+                    name: 'Playing Song..', 
+                    iconURL: musicIcons.playerIcon,
+                    url: config.SupportServer
+                })
+                .setFooter({ text: `Developed by SSRR | Prime Music v1.2`, iconURL: musicIcons.heartIcon })
+                .setTimestamp()
+                .setDescription(  
+                    `- **Title:** [${track.info.title}](${track.info.uri})\n` +
+                    `- **Author:** ${track.info.author || 'Unknown Artist'}\n` +
+                    `- **Length:** ${formatDuration(track.info.length)}\n` +
+                    `- **Requester:** ${requester}\n` +
+                    `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `Loop`, ❌ `Disable`, ⏭️ `Skip`, 📜 `Queue`, 🗑️ `Clear`\n ⏹️ `Stop`, ⏸️ `Pause`, ▶️ `Resume`, 🔊 `Vol +`, 🔉 `Vol -`')
+                .setImage('attachment://musicard.png')
+                .setColor('#FF7A00');
 
-          
             const actionRow1 = createActionRow1(false);
             const actionRow2 = createActionRow2(false);
 
@@ -136,7 +136,6 @@ function initializePlayer(client) {
         }
     });
 
-    
     client.riffy.on("trackEnd", async (player) => {
         await disableTrackMessage(client, player);
         currentTrackMessageId = null;
@@ -152,11 +151,9 @@ function initializePlayer(client) {
         const guildId = player.guildId;
     
         try {
-         
             const autoplaySetting = await autoplayCollection.findOne({ guildId });
     
             if (autoplaySetting?.autoplay) {
-                //console.log(`Autoplay is enabled for guild: ${guildId}`);
                 const nextTrack = await player.autoplay(player);
     
                 if (!nextTrack) {
@@ -191,6 +188,7 @@ function initializePlayer(client) {
         }
     }
 }
+
 function formatDuration(ms) {
     const seconds = Math.floor((ms / 1000) % 60);
     const minutes = Math.floor((ms / (1000 * 60)) % 60);
@@ -204,6 +202,7 @@ function formatDuration(ms) {
         .filter(Boolean)
         .join(' ');
 }
+
 function setupCollector(client, player, channel, message) {
     const filter = i => [
         'loopToggle', 'skipTrack', 'disableLoop', 'showQueue', 'clearQueue',
