@@ -14,13 +14,6 @@ module.exports = {
   embedTimeout: 5, 
   errorLog: "", 
   nodes: [
-     {
-      name: "Muzykant v4",
-      password: "https://discord.gg/v6sdrD9kPh",
-      host: "lavalink_v4.muzykant.xyz",
-      port: 80,
-      secure: false
-    },
     {
       name: "ChalresNaig Node",
       password: "NAIGLAVA-dash.techbyte.host",
