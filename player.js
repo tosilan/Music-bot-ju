@@ -79,7 +79,7 @@ function initializePlayer(client) {
                     iconURL: musicIcons.playerIcon,
                     url: config.SupportServer
                 })
-                .setFooter({ text: `開発者:ミミズパワー | 愉快なゲーム`, iconURL: musicIcons.heartIcon })
+                .setFooter({ text: `開発者:田所浩二 | 野獣先輩`, iconURL: musicIcons.heartIcon })
                 .setTimestamp()
                 .setDescription(  
                     `- **タイトル:** [${track.info.title}](${track.info.uri})\n` +
