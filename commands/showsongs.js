@@ -78,7 +78,7 @@ async function showSongs(client, interaction, lang) {
             await interaction.reply({ embeds: [embed], ephemeral: index !== 0 }); 
         }
     } catch (error) {
-        console.error('Error showing songs:', error);
+        console.error('曲の表示中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -95,12 +95,12 @@ async function showSongs(client, interaction, lang) {
 
 module.exports = {
     name: 'showsongs',
-    description: 'Show all songs in a playlist',
+    description: 'プレイリスト内のすべての曲を表示します',
     permissions: '0x0000000000000800',
     options: [
         {
             name: 'playlist',
-            description: 'Enter playlist name',
+            description: 'プレイリスト名を入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         }
