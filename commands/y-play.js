@@ -125,7 +125,7 @@ async function play(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "play",
+    name: "y-play",
     description: "曲名またはリンク、またはプレイリストから曲を再生します",
     permissions: "0x0000000000000800",
     options: [{
