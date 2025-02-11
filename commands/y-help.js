@@ -5,7 +5,7 @@ const config = require("../config.js");
 const musicIcons = require('../UI/icons/musicicons.js');
 
 module.exports = {
-  name: "help",
+  name: "y-help",
   description: "ボットに関する情報を取得します",
   permissions: "0x0000000000000800",
   options: [],
