@@ -56,7 +56,7 @@ async function volume(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "volume",
+    name: "y-volume",
     description: "現在の曲の音量を設定します",
     permissions: "0x0000000000000800",
     options: [{
