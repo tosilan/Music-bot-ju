@@ -1,5 +1,5 @@
 module.exports = {
-    footer: "ミミズパワー により開発 | 愉快なゲーム",
+    footer: "開発者:ミミズパワー | 愉快なゲーム",
     ping: {
       description: "ボットの応答時間を確認",
       response: "応答時間を計測中...",
