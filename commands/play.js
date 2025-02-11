@@ -105,7 +105,7 @@ async function play(client, interaction, lang) {
         await interaction.followUp({ embeds: [randomEmbed] });
 
     } catch (error) {
-        console.error('Error processing play command:', error);
+        console.error('プレイコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -126,11 +126,11 @@ async function play(client, interaction, lang) {
 
 module.exports = {
     name: "play",
-    description: "Play a song from a name or link",
+    description: "曲名またはリンク、またはプレイリストから曲を再生します",
     permissions: "0x0000000000000800",
     options: [{
         name: 'name',
-        description: 'Enter song name / link or playlist',
+        description: '曲名 / リンクまたはプレイリストを入力してください',
         type: ApplicationCommandOptionType.String,
         required: true
     }],
