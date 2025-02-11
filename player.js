@@ -77,28 +77,8 @@ function initializePlayer(client) {
         const channel = client.channels.cache.get(player.textChannel);
         const trackUri = track.info.uri;
         const requester = requesters.get(trackUri);
-
-        try {
-            const musicard = await Dynamic({
-                thumbnailImage: track.info.thumbnail || 'https://example.com/default_thumbnail.png',
-                backgroundColor: '#070707',
-                progress: 10,
-                progressColor: '#FF7A00',
-                progressBarColor: '#5F2D00',
-                name: track.info.title,
-                nameColor: '#FF7A00',
-                author: track.info.author || 'Unknown Artist',
-                authorColor: '#696969',
-                nameFont: 'Noto Sans JP', // フォントを指定
-                authorFont: 'Noto Sans JP' // フォントを指定
-            });
-
-            // Save the generated card to a file
-            const cardPath = path.join(__dirname, 'musicard.png');
-            fs.writeFileSync(cardPath, musicard);
-
+        
             // Prepare the attachment and embed
-            const attachment = new AttachmentBuilder(cardPath, { name: 'musicard.png' });
             const embed = new EmbedBuilder()
                 .setAuthor({ 
                     name: '歌を再生する..', 
@@ -112,7 +92,7 @@ function initializePlayer(client) {
                     `- **アーティスト:** ${track.info.author || '不明アーティスト'}\n` +
                     `- **再生時間:** ${formatDuration(track.info.length)}\n` +
                     `- **実行者:** ${requester}\n` +
-                    `- **取得元:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `ループ再生`, ❌ `ループ解除`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `リセット`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再生`, 🔊 `音量＋`, 🔉 `音量ー`')
+                    `- **取得元:** ${track.info.sourceName}\n` + '**- 操作方法 :**\n 🔁 `ループ再生`, ❌ `ループ解除`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `リセット`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再生`, 🔊 `音量＋`, 🔉 `音量ー`')
                 .setColor('#FF7A00');
 
             const actionRow1 = createActionRow1(false);
