@@ -52,7 +52,7 @@ async function resume(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "resume",
+    name: "y-resume",
     description: "現在の曲を再開します",
     permissions: "0x0000000000000800",
     options: [],
