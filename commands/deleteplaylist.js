@@ -71,7 +71,7 @@ async function deletePlaylist(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error deleting playlist:', error);
+        console.error('プレイリストの削除中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -89,12 +89,12 @@ async function deletePlaylist(client, interaction, lang) {
 
 module.exports = {
     name: 'deleteplaylist',
-    description: 'Delete a playlist',
+    description: 'プレイリストを削除します',
     permissions: '0x0000000000000800',
     options: [
         {
             name: 'name',
-            description: 'Enter playlist name',
+            description: 'プレイリスト名を入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         }
