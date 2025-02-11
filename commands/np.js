@@ -49,7 +49,7 @@ async function nowPlaying(client, interaction, lang) {
         await interaction.reply({ embeds: [npEmbed] });
 
     } catch (error) {
-        console.error('Error processing now playing command:', error);
+        console.error('現在再生中のコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -66,7 +66,7 @@ async function nowPlaying(client, interaction, lang) {
 
 module.exports = {
     name: "np",
-    description: "Displays the currently playing song with a progress bar",
+    description: "現在再生中の曲と進行状況を表示します",
     permissions: "0x0000000000000800",
     options: [],
     run: nowPlaying,
