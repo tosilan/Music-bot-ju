@@ -1,40 +1,33 @@
 const { Riffy } = require("riffy");
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, AttachmentBuilder, PermissionsBitField } = require("discord.js");
 const { queueNames, requesters } = require("./commands/play");
-const { Dynamic } = require("musicard");
 const config = require("./config.js");
 const musicIcons = require('./UI/icons/musicicons.js');
 const colors = require('./UI/colors/colors');
 const fs = require("fs");
 const path = require("path");
 const { autoplayCollection } = require('./mongodb.js');
-const { createCanvas, registerFont } = require('canvas'); // canvasをインポート
 
-// Googleフォントの登録
-registerFont(path.join(__dirname, './NotoSansJP-VariableFont_wght.ttf'), { family: 'Noto Sans JP' });
-
-async function sendMessageWithPermissionsCheck(channel, embed, attachment, actionRow1, actionRow2) {
+async function sendMessageWithPermissionsCheck(channel, embed, actionRow1, actionRow2) {
     try {
         const permissions = channel.permissionsFor(channel.guild.members.me);
         if (!permissions.has(PermissionsBitField.Flags.SendMessages) ||
             !permissions.has(PermissionsBitField.Flags.EmbedLinks) ||
-            !permissions.has(PermissionsBitField.Flags.AttachFiles) ||
             !permissions.has(PermissionsBitField.Flags.UseExternalEmojis)) {
-            console.error("Bot lacks necessary permissions to send messages in this channel.");
+            console.error("ボットがこのチャンネルでメッセージを送信するための必要な権限がありません。");
             return;
         }
 
         const message = await channel.send({
             embeds: [embed],
-            files: [attachment],
             components: [actionRow1, actionRow2]
         });
         return message;
     } catch (error) {
-        console.error("Error sending message:", error.message);
+        console.error("メッセージ送信中のエラー:", error.message);
         const errorEmbed = new EmbedBuilder()
             .setColor('#FF0000')
-            .setDescription("⚠️ **Unable to send message. Check bot permissions.**");
+            .setDescription("⚠️ **メッセージを送信できませんでした。ボットの権限を確認してください。**");
         await channel.send({ embeds: [errorEmbed] });
     }
 }
@@ -66,39 +59,40 @@ function initializePlayer(client) {
     let collector = null;
 
     client.riffy.on("nodeConnect", node => {
-        console.log(`${colors.cyan}[ LAVALINK ]${colors.reset} ${colors.green}Node ${node.name} Connected ✅${colors.reset}`);
+        console.log(`${colors.cyan}[ LAVALINK ]${colors.reset} ${colors.green}ノード ${node.name} 接続済み ✅${colors.reset}`);
     });
     
     client.riffy.on("nodeError", (node, error) => {
-        console.log(`${colors.cyan}[ LAVALINK ]${colors.reset} ${colors.red}Node ${node.name} Error ❌ | ${error.message}${colors.reset}`);
+        console.log(`${colors.cyan}[ LAVALINK ]${colors.reset} ${colors.red}ノード ${node.name} エラー ❌ | ${error.message}${colors.reset}`);
     });
 
     client.riffy.on("trackStart", async (player, track) => {
         const channel = client.channels.cache.get(player.textChannel);
         const trackUri = track.info.uri;
         const requester = requesters.get(trackUri);
-        
-            // Prepare the attachment and embed
+
+        try {
+            // 埋め込みメッセージを準備
             const embed = new EmbedBuilder()
                 .setAuthor({ 
-                    name: '歌を再生する..', 
+                    name: '再生中の曲..', 
                     iconURL: musicIcons.playerIcon,
                     url: config.SupportServer
                 })
-                .setFooter({ text: `ミミズパワーによって開発されました | 愉快なゲーム`, iconURL: musicIcons.heartIcon })
+                .setFooter({ text: `開発者: SSRR | Prime Music v1.2`, iconURL: musicIcons.heartIcon })
                 .setTimestamp()
                 .setDescription(  
-                    `- **曲名:** [${track.info.title}](${track.info.uri})\n` +
-                    `- **アーティスト:** ${track.info.author || '不明アーティスト'}\n` +
-                    `- **再生時間:** ${formatDuration(track.info.length)}\n` +
-                    `- **実行者:** ${requester}\n` +
-                    `- **取得元:** ${track.info.sourceName}\n` + '**- 操作方法 :**\n 🔁 `ループ再生`, ❌ `ループ解除`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `リセット`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再生`, 🔊 `音量＋`, 🔉 `音量ー`')
+                    `- **タイトル:** [${track.info.title}](${track.info.uri})\n` +
+                    `- **アーティスト:** ${track.info.author || '不明なアーティスト'}\n` +
+                    `- **長さ:** ${formatDuration(track.info.length)}\n` +
+                    `- **リクエスター:** ${requester}\n` +
+                    `- **ソース:** ${track.info.sourceName}\n` + '**- コントロール :**\n 🔁 `ループ`, ❌ `無効`, ⏭️ `スキップ`, 📜 `キュー`, 🗑️ `クリア`\n ⏹️ `停止`, ⏸️ `一時停止`, ▶️ `再開`, 🔊 `音量 +`, 🔉 `音量 -`')
                 .setColor('#FF7A00');
 
             const actionRow1 = createActionRow1(false);
             const actionRow2 = createActionRow2(false);
 
-            const message = await sendMessageWithPermissionsCheck(channel, embed, attachment, actionRow1, actionRow2);
+            const message = await sendMessageWithPermissionsCheck(channel, embed, actionRow1, actionRow2);
             if (message) {
                 currentTrackMessageId = message.id;
 
@@ -107,10 +101,10 @@ function initializePlayer(client) {
             }
 
         } catch (error) {
-            console.error("ミュージックカードの作成または送信エラー：", error.message);
+            console.error("トラックカードの作成または送信中のエラー:", error.message);
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
-                .setDescription("⚠️ **トラックカードをロードできません。再生を続ける...**");
+                .setDescription("⚠️ **トラックカードを読み込めませんでした。再生を続けます...**");
             await channel.send({ embeds: [errorEmbed] });
         }
     });
@@ -137,17 +131,17 @@ function initializePlayer(client) {
     
                 if (!nextTrack) {
                     player.destroy();
-                    await channel.send("⚠️ **自動再生するトラックはもうありません。切断中...**");
+                    await channel.send("⚠️ **自動再生するトラックがありません。切断します...**");
                 }
             } else {
-                console.log(`Autoplay is disabled for guild: ${guildId}`);
+                console.log(`自動再生は無効です。ギルド: ${guildId}`);
                 player.destroy();
-                await channel.send("🎶 **キューは終了しました。自動再生は無効になっています。**");
+                await channel.send("🎶 **キューが終了しました。自動再生は無効です。**");
             }
         } catch (error) {
-            console.error("Error handling autoplay:", error);
+            console.error("自動再生の処理中にエラー:", error);
             player.destroy();
-            await channel.send("👾**キューは空です！切断中...**");
+            await channel.send("👾**キューが空です！切断します...**");
         }
     });
     
@@ -163,7 +157,7 @@ function initializePlayer(client) {
                 await message.edit({ components: [disabledRow1, disabledRow2] });
             }
         } catch (error) {
-            console.error("Failed to disable message components:", error);
+            console.error("メッセージコンポーネントの無効化に失敗しました:", error);
         }
     }
 }
@@ -188,7 +182,7 @@ function setupCollector(client, player, channel, message) {
         'stopTrack', 'pauseTrack', 'resumeTrack', 'volumeUp', 'volumeDown'
     ].includes(i.customId);
 
-    const collector = message.createMessageComponentCollector({ filter, time: 600000 }); // Set timeout if desired
+    const collector = message.createMessageComponentCollector({ filter, time: 600000 }); // タイムアウトを設定
 
     collector.on('collect', async i => {
         await i.deferUpdate();
@@ -200,7 +194,7 @@ function setupCollector(client, player, channel, message) {
         if (!voiceChannel || voiceChannel.id !== playerChannel) {
             const vcEmbed = new EmbedBuilder()
                 .setColor(config.embedColor)
-                .setDescription('🔒 **コントロールを使用するには、同じ音声チャンネルにいる必要があります！**');
+                .setDescription('🔒 **コントロールを使用するには同じボイスチャンネルにいる必要があります！**');
             const sentMessage = await channel.send({ embeds: [vcEmbed] });
             setTimeout(() => sentMessage.delete().catch(console.error), config.embedTimeout * 1000);
             return;
@@ -210,7 +204,7 @@ function setupCollector(client, player, channel, message) {
     });
 
     collector.on('end', () => {
-        console.log("Collector stopped.");
+        console.log("コレクターが停止しました。");
     });
 
     return collector;
@@ -223,7 +217,7 @@ async function handleInteraction(i, player, channel) {
             break;
         case 'skipTrack':
             player.stop();
-            await sendEmbed(channel, "⏭️ **プレイヤーは次の曲を再生します！**");
+            await sendEmbed(channel, "⏭️ **次の曲が再生されます！**");
             break;
         case 'disableLoop':
             disableLoop(player, channel);
@@ -233,16 +227,16 @@ async function handleInteraction(i, player, channel) {
             break;
         case 'clearQueue':
             player.queue.clear();
-            await sendEmbed(channel, "🗑️ **キューがリセットされました！**");
+            await sendEmbed(channel, "🗑️ **キューがクリアされました！**");
             break;
         case 'stopTrack':
             player.stop();
             player.destroy();
-            await sendEmbed(channel, '⏹️ **再生が停止され、プレーヤーが破壊されました！パリーンw**');
+            await sendEmbed(channel, '⏹️ **再生が停止され、プレイヤーが破棄されました！**');
             break;
         case 'pauseTrack':
             if (player.paused) {
-                await sendEmbed(channel, '⏸️ **再生はすでに一時停止されています！**');
+                await sendEmbed(channel, '⏸️ **再生はすでに一時停止しています！**');
             } else {
                 player.pause(true);
                 await sendEmbed(channel, '⏸️ **再生が一時停止されました！**');
@@ -274,10 +268,10 @@ async function sendEmbed(channel, message) {
 function adjustVolume(player, channel, amount) {
     const newVolume = Math.min(100, Math.max(10, player.volume + amount));
     if (newVolume === player.volume) {
-        sendEmbed(channel, amount > 0 ? '🔊 **音量はすでに最大です！**' : '🔉 **ボリュームはすでに最小です！**');
+        sendEmbed(channel, amount > 0 ? '🔊 **音量はすでに最大です！**' : '🔉 **音量はすでに最小です！**');
     } else {
         player.setVolume(newVolume);
-        sendEmbed(channel, `🔊 **ボリュームは ${newVolume}% に変更されました!**`);
+        sendEmbed(channel, `🔊 **音量が${newVolume}%に変更されました！**`);
     }
 }
 
@@ -295,12 +289,12 @@ function formatTrack(track) {
 
 function toggleLoop(player, channel) {
     player.setLoop(player.loop === "track" ? "queue" : "track");
-    sendEmbed(channel, player.loop === "track" ? "🔁 **トラックループが起動しました！**" : "🔁 **キューループがアクティブになりました！**");
+    sendEmbed(channel, player.loop === "track" ? "🔁 **トラックループが有効になりました！**" : "🔁 **キューループが有効になりました！**");
 }
 
 function disableLoop(player, channel) {
     player.setLoop("none");
-    sendEmbed(channel, "❌ **ループは無効です！**");
+    sendEmbed(channel, "❌ **ループが無効になりました！**");
 }
 
 function showQueue(channel) {
@@ -310,7 +304,6 @@ function showQueue(channel) {
     }
     const queueChunks = [];
 
- 
     for (let i = 1; i < queueNames.length; i += 10) {
         const chunk = queueNames.slice(i, i + 10)
             .map((song, index) => `${i + index}. ${formatTrack(song)}`)
@@ -318,12 +311,6 @@ function showQueue(channel) {
         queueChunks.push(chunk);
     }
 
-  
-    channel.send({
-        embeds: [new EmbedBuilder().setColor(config.embedColor).setDescription(nowPlaying)]
-    }).catch(console.error);
-
-  
     queueChunks.forEach(async (chunk) => {
         const embed = new EmbedBuilder()
             .setColor(config.embedColor)
