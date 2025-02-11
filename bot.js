@@ -42,6 +42,14 @@ fs.readdir(config.commandsDir, (err, files) => {
     try {
       if (f.endsWith(".js")) {
         let props = require(`${config.commandsDir}/${f}`);
+        
+        // 重複チェック
+        const exists = client.commands.find(cmd => cmd.name === props.name);
+        if (exists) {
+          console.log(`コマンド名 "${props.name}" が重複しています。ファイル: ${f}`);
+          return; // 重複があればスキップ
+        }
+        
         client.commands.push({
           name: props.name,
           description: props.description,
@@ -53,6 +61,7 @@ fs.readdir(config.commandsDir, (err, files) => {
     }
   });
 });
+
 
 
 client.on("raw", (d) => {
