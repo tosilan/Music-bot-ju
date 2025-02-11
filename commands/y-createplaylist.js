@@ -72,7 +72,7 @@ async function createPlaylist(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'createplaylist',
+    name: 'y-createplaylist',
     description: '新しいプレイリストを作成します',
     permissions: '0x0000000000000800',
     options: [
