@@ -141,7 +141,7 @@ async function playCustomPlaylist(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'playcustomplaylist',
+    name: 'y-playcustomplaylist',
     description: 'カスタムプレイリストを再生します',
     permissions: '0x0000000000000800',
     options: [
