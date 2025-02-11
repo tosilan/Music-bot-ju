@@ -39,7 +39,7 @@ async function queue(client, interaction, lang) {
             return;
         }
 
-        // Paginate the queue
+        // キューのページネーション
         const songsPerPage = 10;
         const totalPages = Math.ceil((queue.length + (currentTrack ? 1 : 0)) / songsPerPage);
         const currentPage = 1;
@@ -50,12 +50,12 @@ async function queue(client, interaction, lang) {
 
             const queueItems = [];
             if (page === 1 && currentTrack) {
-                queueItems.push(`**Now Playing:** [${currentTrack.info.title}](${currentTrack.info.uri}) - Requested by: ${currentTrack.info.requester}`);
+                queueItems.push(`**現在再生中:** [${currentTrack.info.title}](${currentTrack.info.uri}) - リクエスト者: ${currentTrack.info.requester}`);
             }
 
             const paginatedQueue = queue.slice(start - (currentTrack ? 1 : 0), end - (currentTrack ? 1 : 0));
             paginatedQueue.forEach((track, index) => {
-                queueItems.push(`**${start + index + 1}.** [${track.info.title}](${track.info.uri}) - Requested by: ${track.info.requester}`);
+                queueItems.push(`**${start + index + 1}.** [${track.info.title}](${track.info.uri}) - リクエスト者: ${track.info.requester}`);
             });
 
             return queueItems.join('\n') || lang.queue.embed.noMoreSongs;
@@ -70,13 +70,13 @@ async function queue(client, interaction, lang) {
             })
             .setDescription(generateQueuePage(currentPage))
             .setFooter({
-                text: `Page ${currentPage} of ${totalPages} | ${lang.footer}`,
+                text: `ページ ${currentPage} / ${totalPages} | ${lang.footer}`,
                 iconURL: musicIcons.heartIcon
             });
 
         await interaction.reply({ embeds: [queueEmbed] });
     } catch (error) {
-        console.error('Error processing queue command:', error);
+        console.error('キューコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({
@@ -93,7 +93,7 @@ async function queue(client, interaction, lang) {
 
 module.exports = {
     name: "queue",
-    description: "Show the current song queue",
+    description: "現在の曲のキューを表示します",
     permissions: "0x0000000000000800",
     options: [],
     run: queue
