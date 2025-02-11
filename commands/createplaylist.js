@@ -55,7 +55,7 @@ async function createPlaylist(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error creating playlist:', error);
+        console.error('プレイリストの作成中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -73,18 +73,18 @@ async function createPlaylist(client, interaction, lang) {
 
 module.exports = {
     name: 'createplaylist',
-    description: 'Create a new playlist',
+    description: '新しいプレイリストを作成します',
     permissions: '0x0000000000000800',
     options: [
         {
             name: 'name',
-            description: 'Enter playlist name',
+            description: 'プレイリスト名を入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         },
         {
             name: 'private',
-            description: 'Set playlist as private (visible only to you)',
+            description: 'プレイリストをプライベートに設定します（あなたにのみ表示）',
             type: ApplicationCommandOptionType.Boolean,
             required: true
         }
