@@ -4,7 +4,7 @@ const musicIcons = require('../UI/icons/musicicons.js');
 
 module.exports = {
   name: "ping",
-  description: "Check the bot latency",
+  description: "ボットのレイテンシを確認します",
   permissions: "0x0000000000000800",
   options: [],
   run: async (client, interaction, lang) => {
@@ -21,7 +21,7 @@ module.exports = {
         .setAuthor({
           name: lang.ping.embed.title,
           iconURL: musicIcons.pingIcon,
-          url: "https://discord.gg/xQF9f9yUEM"
+          url: "https://discord.gg/N28YUYpdAe"
         })
         .setDescription(
           `${lang.ping.embed.responseTime.replace("{latency}", latency)}
