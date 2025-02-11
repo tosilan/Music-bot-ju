@@ -53,7 +53,7 @@ async function stop(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "stop",
+    name: "y-stop",
     description: "現在の曲を停止し、プレイヤーを破棄します",
     permissions: "0x0000000000000800",
     options: [],
