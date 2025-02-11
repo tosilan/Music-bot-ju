@@ -52,7 +52,7 @@ async function skip(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "skip",
+    name: "y-skip",
     description: "現在の曲をスキップします",
     permissions: "0x0000000000000800",
     options: [],
