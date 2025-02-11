@@ -3,7 +3,7 @@ const config = require("../config.js");
 const musicIcons = require('../UI/icons/musicicons.js');
 
 module.exports = {
-    name: "support",
+    name: "y-support",
     description: "サポートサーバーのリンクを取得します",
     permissions: "0x0000000000000800",
     options: [],
