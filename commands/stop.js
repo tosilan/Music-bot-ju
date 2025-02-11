@@ -37,7 +37,7 @@ async function stop(client, interaction, lang) {
         await interaction.reply({ embeds: [embed] });
 
     } catch (error) {
-        console.error('Error processing stop command:', error);
+        console.error('stopコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -54,7 +54,7 @@ async function stop(client, interaction, lang) {
 
 module.exports = {
     name: "stop",
-    description: "Stop the current song and destroy the player",
+    description: "現在の曲を停止し、プレイヤーを破棄します",
     permissions: "0x0000000000000800",
     options: [],
     run: stop
