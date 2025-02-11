@@ -94,7 +94,7 @@ async function showSongs(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'showsongs',
+    name: 'y-showsongs',
     description: 'プレイリスト内のすべての曲を表示します',
     permissions: '0x0000000000000800',
     options: [
