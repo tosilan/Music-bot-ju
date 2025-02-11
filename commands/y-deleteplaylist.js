@@ -88,7 +88,7 @@ async function deletePlaylist(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'deleteplaylist',
+    name: 'y-deleteplaylist',
     description: 'プレイリストを削除します',
     permissions: '0x0000000000000800',
     options: [
