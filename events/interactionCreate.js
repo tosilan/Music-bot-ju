@@ -6,7 +6,7 @@ const path = require("path");
 module.exports = async (client, interaction) => {
   try {
     if (!interaction?.guild) {
-      return interaction?.reply({ content: "This command can only be used in a server.", ephemeral: true });
+      return interaction?.reply({ content: "このコマンドはサーバーでのみ使用できます。", ephemeral: true });
     }
 
     const languageFile = path.join(__dirname, `../languages/${config.language}.js`);
