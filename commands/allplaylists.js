@@ -55,7 +55,7 @@ async function allPlaylists(client, interaction, lang) {
             await interaction.reply({ embeds: [embed] });
         }
     } catch (error) {
-        console.error('Error fetching playlists:', error);
+        console.error('プレイリストの取得中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -73,7 +73,7 @@ async function allPlaylists(client, interaction, lang) {
 
 module.exports = {
     name: 'allplaylists',
-    description: 'List all public playlists',
+    description: 'すべての公開プレイリストをリスト表示します',
     permissions: '0x0000000000000800',
     run: allPlaylists
 };
