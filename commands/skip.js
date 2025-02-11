@@ -36,7 +36,7 @@ async function skip(client, interaction, lang) {
         await interaction.reply({ embeds: [embed] });
 
     } catch (error) {
-        console.error('Error processing skip command:', error);
+        console.error('スキップコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -53,7 +53,7 @@ async function skip(client, interaction, lang) {
 
 module.exports = {
     name: "skip",
-    description: "Skip the current song",
+    description: "現在の曲をスキップします",
     permissions: "0x0000000000000800",
     options: [],
     run: skip
