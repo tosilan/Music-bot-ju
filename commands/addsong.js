@@ -67,7 +67,7 @@ async function addSong(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error adding song:', error);
+        console.error('曲の追加中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -85,18 +85,18 @@ async function addSong(client, interaction, lang) {
 
 module.exports = {
     name: 'addsong',
-    description: 'Add a song to a playlist',
+    description: 'プレイリストに曲を追加します',
     permissions: '0x0000000000000800',
     options: [
         {
             name: 'playlist',
-            description: 'Enter playlist name',
+            description: 'プレイリスト名を入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         },
         {
             name: 'input',
-            description: 'Enter song name or URL',
+            description: '曲名またはURLを入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         }
