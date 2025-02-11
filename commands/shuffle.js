@@ -21,7 +21,7 @@ async function shuffle(client, interaction, lang) {
             return;
         }
 
-        // Shuffle the queue
+        // キューをシャッフルする
         for (let i = player.queue.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [player.queue[i], player.queue[j]] = [player.queue[j], player.queue[i]];
@@ -39,7 +39,7 @@ async function shuffle(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error processing shuffle command:', error);
+        console.error('シャッフルコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({
@@ -56,7 +56,7 @@ async function shuffle(client, interaction, lang) {
 
 module.exports = {
     name: "shuffle",
-    description: "Shuffle the current song queue",
+    description: "現在の曲のキューをシャッフルします",
     permissions: "0x0000000000000800",
     options: [],
     run: shuffle
