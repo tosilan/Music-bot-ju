@@ -40,7 +40,7 @@ async function volume(client, interaction, lang) {
 
         return interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error setting volume:', error);
+        console.error('音量設定中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -57,11 +57,11 @@ async function volume(client, interaction, lang) {
 
 module.exports = {
     name: "volume",
-    description: "Set the volume of the current song",
+    description: "現在の曲の音量を設定します",
     permissions: "0x0000000000000800",
     options: [{
         name: 'level',
-        description: 'Volume level (0-100)',
+        description: '音量レベル (0-100)',
         type: ApplicationCommandOptionType.Integer,
         required: true
     }],
