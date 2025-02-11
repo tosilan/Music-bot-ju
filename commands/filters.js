@@ -80,7 +80,7 @@ async function filters(client, interaction, lang) {
         await interaction.reply({ content: lang.filters.embed.filterApplied.replace("{filter}", selectedFilter), ephemeral: true });
 
     } catch (error) {
-        console.error('Error processing filters command:', error);
+        console.error('フィルターコマンドの処理中にエラーが発生しました:', error);
 
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
@@ -102,25 +102,25 @@ async function filters(client, interaction, lang) {
 
 module.exports = {
     name: "filters",
-    description: "Control audio filters with buttons",
+    description: "オーディオフィルターをボタンで制御します",
     permissions: "0x0000000000000800",
     options: [
         {
             name: 'filter',
-            description: 'Select a filter to apply',
+            description: '適用するフィルターを選択してください',
             type: ApplicationCommandOptionType.String,
             required: true,
             choices: [
-                { name: 'Karaoke', value: 'karaoke' },
-                { name: 'Timescale', value: 'timescale' },
-                { name: 'Tremolo', value: 'tremolo' },
-                { name: 'Vibrato', value: 'vibrato' },
+                { name: 'カラオケ', value: 'karaoke' },
+                { name: 'タイムスケール', value: 'timescale' },
+                { name: 'トレモロ', value: 'tremolo' },
+                { name: 'ビブラート', value: 'vibrato' },
                 { name: '3D', value: 'rotation' },
-                { name: 'Distortion', value: 'distortion' },
-                { name: 'Channel Mix', value: 'channelmix' },
-                { name: 'Low Pass', value: 'lowpass' },
-                { name: 'Bassboost', value: 'bassboost' },
-                { name: 'Clear Filters', value: 'clear' }
+                { name: '歪み', value: 'distortion' },
+                { name: 'チャンネルミックス', value: 'channelmix' },
+                { name: 'ローパス', value: 'lowpass' },
+                { name: 'バスブースト', value: 'bassboost' },
+                { name: 'フィルターをクリア', value: 'clear' }
             ]
         }
     ],
