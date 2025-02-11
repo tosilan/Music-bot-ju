@@ -27,7 +27,7 @@ async function toggleAutoplay(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error toggling autoplay:', error);
+        console.error('自動再生の切り替え中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -45,12 +45,12 @@ async function toggleAutoplay(client, interaction, lang) {
 
 module.exports = {
     name: 'autoplay',
-    description: 'Toggle autoplay for the server',
+    description: 'サーバーの自動再生を切り替えます',
     permissions: '0x0000000000000800',
     options: [
         {
             name: 'enable',
-            description: 'toggle autoplay on / off',
+            description: '自動再生をオン/オフに切り替えます',
             type: ApplicationCommandOptionType.Boolean,
             required: true
         }
