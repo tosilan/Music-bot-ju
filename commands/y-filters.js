@@ -101,7 +101,7 @@ async function filters(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "filters",
+    name: "y-filters",
     description: "オーディオフィルターをボタンで制御します",
     permissions: "0x0000000000000800",
     options: [
