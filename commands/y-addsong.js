@@ -84,7 +84,7 @@ async function addSong(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'addsong',
+    name: 'y-addsong',
     description: 'プレイリストに曲を追加します',
     permissions: '0x0000000000000800',
     options: [
