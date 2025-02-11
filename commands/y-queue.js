@@ -92,7 +92,7 @@ async function queue(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "queue",
+    name: "y-queue",
     description: "現在の曲のキューを表示します",
     permissions: "0x0000000000000800",
     options: [],
