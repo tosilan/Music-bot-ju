@@ -51,7 +51,7 @@ async function remove(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error processing remove command:', error);
+        console.error('removeコマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({
@@ -68,12 +68,12 @@ async function remove(client, interaction, lang) {
 
 module.exports = {
     name: "remove",
-    description: "Remove a song from the queue by its position",
+    description: "キューから指定された位置の曲を削除します",
     permissions: "0x0000000000000800",
     options: [
         {
             name: 'position',
-            description: 'Position of the song to remove from the queue',
+            description: 'キューから削除する曲の位置',
             type: ApplicationCommandOptionType.Integer,
             required: true
         }
