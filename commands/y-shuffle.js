@@ -55,7 +55,7 @@ async function shuffle(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "shuffle",
+    name: "y-shuffle",
     description: "現在の曲のキューをシャッフルします",
     permissions: "0x0000000000000800",
     options: [],
