@@ -36,7 +36,7 @@ async function pause(client, interaction, lang) {
         await interaction.reply({ embeds: [embed] });
 
     } catch (error) {
-        console.error('Error processing pause command:', error);
+        console.error('一時停止コマンドの処理中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -53,7 +53,7 @@ async function pause(client, interaction, lang) {
 
 module.exports = {
     name: "pause",
-    description: "Pause the current song",
+    description: "現在の曲を一時停止します",
     permissions: "0x0000000000000800",
     options: [],
     run: pause
