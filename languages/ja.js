@@ -8,7 +8,7 @@ module.exports = {
         responseTime: "- ボット応答時間：**{latency}ミリ秒**",
         websocketPing: "- WebSocket応答時間：**{ping}ミリ秒**",
         uptime: "- 稼働時間：**{uptime}**",
-        footer: "ミミズパワー により開発 | 愉快なゲーム"
+        footer: "田所浩二 により開発 | 野獣先輩"
       }
     },
     addsong: {
