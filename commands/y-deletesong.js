@@ -56,7 +56,7 @@ async function deleteSong(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'deletesong',
+    name: 'y-deletesong',
     description: 'プレイリストから曲を削除します',
     permissions: '0x0000000000000800',
     options: [
