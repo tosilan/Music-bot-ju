@@ -3,7 +3,7 @@ const config = require("../config.js");
 const musicIcons = require('../UI/icons/musicicons.js');
 
 module.exports = {
-  name: "ping",
+  name: "y-ping",
   description: "ボットのレイテンシを確認します",
   permissions: "0x0000000000000800",
   options: [],
