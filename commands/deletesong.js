@@ -39,7 +39,7 @@ async function deleteSong(client, interaction, lang) {
 
         await interaction.reply({ embeds: [embed] });
     } catch (error) {
-        console.error('Error deleting song:', error);
+        console.error('曲の削除中にエラーが発生しました:', error);
         const errorEmbed = new EmbedBuilder()
             .setColor('#ff0000')
             .setAuthor({ 
@@ -57,18 +57,18 @@ async function deleteSong(client, interaction, lang) {
 
 module.exports = {
     name: 'deletesong',
-    description: 'Delete a song from a playlist',
+    description: 'プレイリストから曲を削除します',
     permissions: '0x0000000000000800',
     options: [
         {
             name: 'playlist',
-            description: 'Enter playlist name',
+            description: 'プレイリスト名を入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         },
         {
             name: 'song',
-            description: 'Enter song name',
+            description: '曲名を入力してください',
             type: ApplicationCommandOptionType.String,
             required: true
         }
