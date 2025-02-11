@@ -65,7 +65,7 @@ async function nowPlaying(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "np",
+    name: "y-np",
     description: "現在再生中の曲と進行状況を表示します",
     permissions: "0x0000000000000800",
     options: [],
