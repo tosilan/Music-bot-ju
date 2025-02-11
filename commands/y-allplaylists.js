@@ -72,7 +72,7 @@ async function allPlaylists(client, interaction, lang) {
 }
 
 module.exports = {
-    name: 'allplaylists',
+    name: 'y-allplaylists',
     description: 'すべての公開プレイリストをリスト表示します',
     permissions: '0x0000000000000800',
     run: allPlaylists
