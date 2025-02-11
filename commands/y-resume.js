@@ -67,7 +67,7 @@ async function remove(client, interaction, lang) {
 }
 
 module.exports = {
-    name: "remove",
+    name: "y-remove",
     description: "キューから指定された位置の曲を削除します",
     permissions: "0x0000000000000800",
     options: [
