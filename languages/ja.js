@@ -104,7 +104,7 @@ module.exports = {
           description: `
           **{botName}へようこそ！**
 
-          > Discordの究極の音楽コンパニオン。
+          > Discordの野獣音楽ヤリマスネ。
           > ボットの詳細情報：
                   
           **📂 コマンド数：** {totalCommands}
