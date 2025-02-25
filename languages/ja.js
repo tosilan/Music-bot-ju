@@ -255,7 +255,7 @@ module.exports = {
     support: {
       embed: {
           authorName: "サポートサーバー",
-          description: "➡️ **サポートと更新情報のためにDiscordサーバーに参加：**\n- Discord - {supportServerLink}\n\n➡️ **フォローする：**\n- GitHub - {githubLink}\n- Replit - {replitLink}\n- YouTube - {youtubeLink}",
+          description: "➡️ **サポートと更新情報のためにDiscordサーバーに参加：**\n- Discord - {supportServerLink}\n\n➡️ **閲覧する：**\n- 公式サイト - {githubLink}\n- YouTube - {youtubeLink}",
           error: "エラー",
           errorDescription: "- リクエストの処理中にエラーが発生しました。"
       }
