@@ -11,10 +11,10 @@ const musicIcons = {
     stopIcon: 'https://cdn.discordapp.com/emojis/1021628438441902100.gif',
     volumeIcon: 'https://cdn.discordapp.com/emojis/1040824501711159397.gif',
     playlistIcon : 'https://cdn.discordapp.com/emojis/1096444591982522498.gif',
-    heartIcon : 'https://cdn3.emoji.gg/emojis/5572-rainbow-sheep.gif',
+    heartIcon : 'https://cdn.discordapp.com/attachments/1230824451990622299/1230836684774576168/7762-verified-blue.gif',
     pingIcon : 'https://cdn.discordapp.com/emojis/923089856752664576.gif',
     CheckmarkIcon: "https://cdn.discordapp.com/emojis/819446784647757834.gif",
-    MusicIcon:"https://cdn.discordapp.com/emojis/763415718271385610.gif",
+    MusicIcon: "https://cdn.discordapp.com/emojis/763415718271385610.gif",
 };
 
 module.exports = musicIcons;
