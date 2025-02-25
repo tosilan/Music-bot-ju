@@ -9,7 +9,7 @@ module.exports = {
   commandsDir: './commands',  
   embedColor: "#1db954",
   activityName: "野獣先輩", 
-  activityType: "LISTENING",  // Available activity types : LISTENING , PLAYING
+  activityType: "PLAYING",  // Available activity types : LISTENING , PLAYING
   SupportServer: "https://discord.gg/N28YUYpdAe",
   embedTimeout: 5, 
   errorLog: "", 
