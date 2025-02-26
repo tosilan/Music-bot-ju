@@ -15,18 +15,17 @@ module.exports = {
   errorLog: "", 
   nodes: [
     {
-      name: "INZEWORLD.COM (DE)",
-      password: "saher.inzeworld.com",
-      host: "lava.inzeworld.com",
-      port: 3128,
-      secure: false
+      name: "LavalinkServer1",
+      password: "https://dsc.gg/ajidevserver",
+      host: "lava-v4.ajieblogs.eu.org",
+      port: 443,
+      secure: true
     },
     {
-      name: "ChalresNaig Node",
-      password: "NAIGLAVA-dash.techbyte.host",
-      host: "lavahatry4.techbyte.host",
-      port: 3000,
-      secure: false
+      name: "LavalinkServer2",
+      password: "https://dsc.gg/ajidevserver",
+      host: "lavalinkv4.serenetia.com",
+      port: 443,
     }
   ]
 }
